@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +10,12 @@ public class EnemyController : MonoBehaviour
     public void Init()
     {
         enemySpawner.SpawnEnemy();
-        enemyHitted.onClick.AddListener(HitSpawnedEnemy);
+        enemyHitted.onClick.AddListener(() => HitSpawnedEnemy(10));
     }
 
-    void HitSpawnedEnemy()
+    public void HitSpawnedEnemy(int damage)
     {
         if (enemySpawner.GetSpawnedEnemy() == null) return;
-        enemySpawner.GetSpawnedEnemy().TakeDamage(10);
+        enemySpawner.GetSpawnedEnemy().TakeDamage(damage);
     }
 }

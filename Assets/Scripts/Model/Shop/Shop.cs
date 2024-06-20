@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -20,17 +19,44 @@ public class Shop : MonoBehaviour
 
     public Inventory inventory;
 
-    public void PurchaseHero(HeroItem hero, GameObject itemFrame)
+    public void PurchaseItem(BaseItem item, ItemTypes type, GameObject itemFrame)
     {
-        if (inventory.gold >= hero.price)
+        if (inventory.gold >= item.price)
         {
-            inventory.gold -= hero.price;
-            inventory.heroes.Add(hero);
+            inventory.gold -= item.price;
 
-            itemFrame.GetComponentsInChildren<TMP_Text>()[0].text = $"{hero.name}\nPurchased";
-            itemFrame.GetComponent<Button>().interactable = false;
+            switch (type)
+            {
+                case ItemTypes.Hero:
+                    inventory.heroes.Add(item as HeroItem);
+                    item.SetUIItemAsOwned(itemFrame);
+                    break;
+                case ItemTypes.Weapon:
+                    inventory.weapons.Add(item as WeaponItem);
+                    item.SetUIItemAsOwned(itemFrame);
+                    break;
+                case ItemTypes.Helmet:
+                    inventory.helmets.Add(item as HelmetItem);
+                    item.SetUIItemAsOwned(itemFrame);
+                    break;
+                case ItemTypes.Chestplate:
+                    inventory.chestplates.Add(item as ChestplateItem);
+                    item.SetUIItemAsOwned(itemFrame);
+                    break;
+                case ItemTypes.Leggings:
+                    inventory.leggings.Add(item as LeggingsItem);
+                    item.SetUIItemAsOwned(itemFrame);
+                    break;
+                case ItemTypes.Boots:
+                    inventory.boots.Add(item as BootsItem);
+                    item.SetUIItemAsOwned(itemFrame);
+                    break;
+            }
 
             if (onItemPurchased != null) onItemPurchased();
         }
     }
+
+
+
 }

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "NPC/Hero")]
@@ -16,4 +15,9 @@ public class HeroItem : BaseItem
     public ChestplateItem chestplate;
     public LeggingsItem leggings;
     public BootsItem boots;
+
+    public void SetUIIHeroStats(GameObject itemUI)
+    {
+        itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"{maxBaseHealth} HP\n{baseAttackPower} AT\n{baseAttackSpeed} SP";
+    }
 }

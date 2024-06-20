@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour, IEnemy
     public void TakeDamage(int damage)
     {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
-        if (onDestroyedAction != null) onTookDamageAction();
+        if (onTookDamageAction != null) onTookDamageAction();
         if (health <= 0) 
         {
             if (onDestroyedAction != null) onDestroyedAction(this);

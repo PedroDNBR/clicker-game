@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameState : MonoBehaviour
@@ -10,6 +9,7 @@ public class GameState : MonoBehaviour
     public ViewLevel viewLevel;
     public ViewInventory viewInventory;
     public EnemyController enemyController;
+    public HeroController heroController;
 
     private void Start()
     {
@@ -19,5 +19,30 @@ public class GameState : MonoBehaviour
         viewLevel.Init();
         viewInventory.Init();
         enemyController.Init();
+        heroController.OnHeroSpawned += HeroAndEnemyFight;
+    }
+
+    void HeroAndEnemyFight()
+    {
+        StartCoroutine(HeroDamageEnemy());
+        StartCoroutine(EnemyDamageHero());
+    }
+
+    private IEnumerator HeroDamageEnemy()
+    {
+        while (enemyController.enemySpawner.GetSpawnedEnemy() != null)
+        {
+            heroController.HitHeroInField(2);
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    private IEnumerator EnemyDamageHero()
+    {
+        while (inventory.heroInField != null)
+        {
+            enemyController.HitSpawnedEnemy(inventory.heroInField.baseAttackPower);
+            yield return new WaitForSeconds(inventory.heroInField.baseAttackSpeed);
+        }
     }
 }

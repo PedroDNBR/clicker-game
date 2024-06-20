@@ -45,7 +45,6 @@ public class EnemySpawner : MonoBehaviour
 
     void EnemyWasDestroyed(Enemy enemy)
     {
-        Debug.Log("EnemyWasDestroyed " + enemy.xp);
         enemy.onDestroyedAction -= EnemyWasDestroyed;
         RemoveEnemyToSpawn(enemy);
         Destroy(enemy.gameObject);

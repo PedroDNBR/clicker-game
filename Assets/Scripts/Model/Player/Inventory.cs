@@ -1,11 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     public int gold;
+
+    public static Inventory instance;
 
     public event Action onGoldChange;
 
@@ -19,6 +20,15 @@ public class Inventory : MonoBehaviour
     public List<ChestplateItem> chestplates = new List<ChestplateItem>();
     public List<LeggingsItem> leggings = new List<LeggingsItem>();
     public List<BootsItem> boots = new List<BootsItem>();
+
+    public HeroItem heroInField;
+
+    public HeroController heroController;
+
+    public Inventory()
+    {
+        instance = this;
+    }
 
     public void Init()
     {
@@ -41,8 +51,29 @@ public class Inventory : MonoBehaviour
         if (onGoldChange != null) onGoldChange();
     }
 
+    public void SetHeroInField(HeroItem hero)
+    {
+        heroInField = hero;
+        heroController.SpawnHero(hero);
+    }
+
+    public HeroItem GetHeroInField()
+    {
+        return heroInField;
+    }
+
     public int GetGold()
     {
         return gold;
     }
+}
+
+public enum ItemTypes
+{
+    Hero,
+    Weapon,
+    Helmet,
+    Chestplate,
+    Leggings,
+    Boots,
 }

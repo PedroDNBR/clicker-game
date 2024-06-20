@@ -17,7 +17,6 @@ public class ViewEnemy : MonoBehaviour
 
     void UpdateUI()
     {
-        Debug.Log(enemy.GetHealthPercentage01());
         healthBarFill.fillAmount = enemy.GetHealthPercentage01();
     }
 }
