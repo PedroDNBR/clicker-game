@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +6,7 @@ public class Hero : MonoBehaviour
 {
     HeroItem hero;
 
-    public int health = 0;
+    int health = 0;
 
     public event Action<Hero> onDestroyedAction;
 
@@ -16,7 +14,7 @@ public class Hero : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health = Mathf.Clamp(health - damage, 0, hero.maxBaseHealth);
+        health = Mathf.Clamp(health - hero.GetTotalDamageToTake(damage), 0, hero.maxBaseHealth);
         if (onTookDamageAction != null) onTookDamageAction();
         if (health <= 0)
         {
@@ -35,14 +33,18 @@ public class Hero : MonoBehaviour
         image.sprite = sprite;
     }
 
-    public void SetHero(HeroItem hero)
+    public void SetHeroItem(HeroItem hero)
     {
         this.hero = hero;
-        SetHealth(hero.maxBaseHealth);
-        SetSprite(hero.sprite);
+        if(hero.GetHealthWhenInField() > 0)
+            SetHealth(hero.GetHealthWhenInField());
+        else
+            SetHealth(hero.maxBaseHealth);
+
+        SetSprite(hero.largeSprite);
     }
 
-    public HeroItem GetHero()
+    public HeroItem GetHeroItem()
     {
         return hero;
     }
@@ -50,5 +52,10 @@ public class Hero : MonoBehaviour
     public float GetHealthPercentage01()
     {
         return Mathf.InverseLerp(0, hero.maxBaseHealth, health);
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 }

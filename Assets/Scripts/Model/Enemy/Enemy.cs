@@ -1,36 +1,37 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour, IEnemy
 {
-    public int maxHealth = 100;
+    EnemyItem enemyItem;
+
     int health;
 
-    public int index = -1;
-
-    public int xp = 10;
-    public int gold = 10;
+    int index = -1;
 
     public event Action<Enemy> onDestroyedAction;
 
     public event Action onTookDamageAction;
 
-
-    private void Start()
+    public void TakeDamage(int damage)
     {
-        health = maxHealth;
+        health = Mathf.Clamp(health - damage, 0, enemyItem.maxBaseHealth);
+        if (onTookDamageAction != null) onTookDamageAction();
+        if (health <= 0)
+        {
+            if (onDestroyedAction != null) onDestroyedAction(this);
+        }
     }
 
     public int GetMaxHealth()
     {
-        return maxHealth;
+        return enemyItem.maxBaseHealth;
     }
 
     public float GetHealthPercentage01()
     {
-        return Mathf.InverseLerp(0, maxHealth, health);
+        return Mathf.InverseLerp(0, enemyItem.maxBaseHealth, health);
     }
 
     public int GetHealth()
@@ -45,16 +46,28 @@ public class Enemy : MonoBehaviour, IEnemy
 
     public void Heal(int heal)
     {
-        health = Mathf.Clamp(health + heal, 0, maxHealth);
+        health = Mathf.Clamp(health + heal, 0, enemyItem.maxBaseHealth);
     }
 
-    public void TakeDamage(int damage)
+    public void SetEnemyItem(EnemyItem enemy)
     {
-        health = Mathf.Clamp(health - damage, 0, maxHealth);
-        if (onTookDamageAction != null) onTookDamageAction();
-        if (health <= 0) 
-        {
-            if (onDestroyedAction != null) onDestroyedAction(this);
-        }
+        enemyItem = enemy;
+        health = enemyItem.maxBaseHealth;
+        GetComponent<Image>().sprite = enemyItem.largeSprite;
+    }
+
+    public int GetIndex()
+    {
+        return index;
+    }
+
+    public void SetIndex(int index)
+    {
+        this.index = index;
+    }
+
+    public EnemyItem GetEnemyItem()
+    {
+        return enemyItem;
     }
 }

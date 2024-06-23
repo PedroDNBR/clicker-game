@@ -32,17 +32,17 @@ public class GameState : MonoBehaviour
     {
         while (enemyController.enemySpawner.GetSpawnedEnemy() != null)
         {
-            heroController.HitHeroInField(2);
-            yield return new WaitForSeconds(1);
+            heroController.HitHeroInField(enemyController.enemySpawner.GetSpawnedEnemy().GetEnemyItem().baseAttackPower);
+            yield return new WaitForSeconds(enemyController.enemySpawner.GetSpawnedEnemy().GetEnemyItem().baseAttackSpeed);
         }
     }
 
     private IEnumerator EnemyDamageHero()
     {
-        while (inventory.heroInField != null)
+        while (inventory.GetHeroInField() != null)
         {
-            enemyController.HitSpawnedEnemy(inventory.heroInField.baseAttackPower);
-            yield return new WaitForSeconds(inventory.heroInField.baseAttackSpeed);
+            enemyController.HitSpawnedEnemy(inventory.GetHeroInField().GetTotalDamage());
+            yield return new WaitForSeconds(inventory.GetHeroInField().baseAttackSpeed);
         }
     }
 }

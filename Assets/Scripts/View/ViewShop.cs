@@ -1,5 +1,4 @@
-using TMPro;
-using Unity.Android.Gradle;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,11 +21,13 @@ public class ViewShop : MonoBehaviour
     public void ToggleShopWindow()
     {
         shopItem.SetActive(!shopItem.activeSelf);
+        if(shopItem.activeSelf) OpenHeroesShop();
     }
 
     public void ShowShopWindow()
     {
         shopItem.SetActive(true);
+        OpenHeroesShop();
     }
 
     public void HideShopWindow()
@@ -66,7 +67,7 @@ public class ViewShop : MonoBehaviour
 
         hero.SetUIItemSprite(ItemInMenu);
 
-        if (inventory.heroes.Find(heroInArray => heroInArray == hero))
+        if (hero.GetOwned())
         {
             hero.SetUIItemNameAndOwned(ItemInMenu);
             hero.DisableButton(ItemInMenu);
@@ -76,7 +77,7 @@ public class ViewShop : MonoBehaviour
             hero.SetUIItemNameAndPrice(ItemInMenu);
         }
 
-        hero.SetUIIHeroStats(ItemInMenu);
+        hero.SetUIIItemStats(ItemInMenu);
 
         ItemInMenu.GetComponent<Button>().onClick.AddListener(() => shop.PurchaseItem(hero, ItemTypes.Hero, ItemInMenu));
 
@@ -87,48 +88,36 @@ public class ViewShop : MonoBehaviour
     {
         foreach (HeroItem hero in shop.heroes)
         {
-            InstantiateHeroInUI(hero);
+            if(Level.instance.GetLevel() >= hero.minLevelToUnlock)
+            {
+                InstantiateHeroInUI(hero);
+            }
         }
     }
 
     void FillShopWithWeapons()
     {
-        foreach (WeaponItem weapon in shop.weapons)
-        {
-            GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
-            weapon.SetUIForShop(ItemInMenu);
-            ItemInMenu.GetComponent<Button>().onClick.AddListener(() => shop.PurchaseItem(weapon, ItemTypes.Weapon, ItemInMenu));
-            ItemInMenu.SetActive(true);
-        }
+        FillShopWithItems(new List<BaseItem>(shop.weapons), ItemTypes.Weapon);
     }
 
     void FillShopWithArmmors()
     {
-        foreach (HelmetItem helmet in shop.helmets)
-        {
-            GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
-            helmet.SetUIForShop(ItemInMenu);
-            ItemInMenu.SetActive(true);
-        }
+        FillShopWithItems(new List<BaseItem>(shop.helmets), ItemTypes.Helmet);
 
-        foreach (ChestplateItem chestplate in shop.chestplates)
-        {
-            GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
-            chestplate.SetUIForShop(ItemInMenu);
-            ItemInMenu.SetActive(true);
-        }
+        FillShopWithItems(new List<BaseItem>(shop.chestplates), ItemTypes.Chestplate);
 
-        foreach (LeggingsItem leggings in shop.leggings)
-        {
-            GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
-            leggings.SetUIForShop(ItemInMenu);
-            ItemInMenu.SetActive(true);
-        }
+        FillShopWithItems(new List<BaseItem>(shop.leggings), ItemTypes.Leggings);
 
-        foreach (BootsItem boots in shop.boots)
+        FillShopWithItems(new List<BaseItem>(shop.boots), ItemTypes.Boots);
+    }
+
+    void FillShopWithItems(List<BaseItem> itemList, ItemTypes ItemType)
+    {
+        foreach (BaseItem item in itemList)
         {
             GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
-            boots.SetUIForShop(ItemInMenu);
+            item.SetUIForShop(ItemInMenu);
+            ItemInMenu.GetComponent<Button>().onClick.AddListener(() => shop.PurchaseItem(item, ItemType, ItemInMenu));
             ItemInMenu.SetActive(true);
         }
     }

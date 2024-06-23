@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Weapon
   sprite: {fileID: 21300000, guid: 5540d84257726c04a902bfa3895aee10, type: 3}
+  smallSprite: {fileID: 21300000, guid: 116574f36e6982d4c97f56cd2689371a, type: 3}
   price: 2
   attackPowerBoost: 15
-  attackSpeedBoost: 0.8
+  attackSpeedBoost: 0.9

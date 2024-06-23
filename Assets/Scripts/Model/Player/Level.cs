@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    public static Level instance;
+
     public event Action onXpChange;
 
     int currentXp = 0;
 
-    public EnemySpawner enemySpawner;
+    public Level()
+    {
+        instance = this;
+    }
+
 
     public void Init()
     {
-        enemySpawner.OnEnemySpawn += SubscribeToEnemyDestroyedAction;
+        EnemySpawner.instance.OnEnemySpawn += SubscribeToEnemyDestroyedAction;
     }
 
     void SubscribeToEnemyDestroyedAction(Enemy enemy)
@@ -23,7 +29,7 @@ public class Level : MonoBehaviour
 
     public void AddEnemyXp(Enemy enemy)
     {
-        AddXp(enemy.xp);
+        AddXp(enemy.GetEnemyItem().xp);
     }
 
     public void AddXp(int xpToAdd)

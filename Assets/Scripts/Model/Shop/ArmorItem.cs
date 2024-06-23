@@ -6,7 +6,7 @@ public class ArmorItem : BaseItem
 {
     public int armorPoints;
 
-    public void SetUIIArmorStats(GameObject itemUI)
+    public override void SetUIIItemStats(GameObject itemUI)
     {
         itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"+{armorPoints} A";
     }
@@ -15,6 +15,6 @@ public class ArmorItem : BaseItem
     {
         SetUIItemSprite(itemUI);
         SetUIItemNameAndPrice(itemUI);
-        SetUIIArmorStats(itemUI);
+        SetUIIItemStats(itemUI);
     }
 }
