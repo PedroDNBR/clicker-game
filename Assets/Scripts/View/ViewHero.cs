@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +11,12 @@ public class ViewHero : MonoBehaviour
     {
         hero = gameObject.GetComponent<Hero>();
         hero.onTookDamageAction += UpdateUI;
+        UpdateUI();
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
+        if (hero == null) return;
         healthBarFill.fillAmount = hero.GetHealthPercentage01();
     }
 }

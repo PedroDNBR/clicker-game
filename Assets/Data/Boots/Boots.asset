@@ -16,4 +16,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: af47806e89260164aa76b65884c2dc55, type: 3}
   smallSprite: {fileID: 21300000, guid: 70468f55159928e4999f03305bedb84b, type: 3}
   price: 4
+  shoppedItemCount: -1
+  minLevelToUnlock: 1
   armorPoints: 3

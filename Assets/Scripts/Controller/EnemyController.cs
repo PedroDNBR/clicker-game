@@ -9,7 +9,10 @@ public class EnemyController : MonoBehaviour
 
     public void Init()
     {
-        enemySpawner.SpawnRandonlyGeneratedEnemy();
+        if(enemySpawner.GetSpawnedEnemy() == null)
+        {
+            enemySpawner.SpawnRandonlyGeneratedEnemy();
+        }
         enemyHitted.onClick.AddListener(() => HitSpawnedEnemy(10));
     }
 

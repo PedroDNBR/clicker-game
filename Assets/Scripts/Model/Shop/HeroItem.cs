@@ -10,11 +10,9 @@ public class HeroItem : BaseItem
 
     public Sprite largeSprite;
 
-    public int minLevelToUnlock = 0;
+    public int healthWhenInField = -1;
 
-    private int healthWhenInField = -1;
-
-    private int shopIndex = 0;
+    public int shopIndex = 0;
 
     [Header("Inventory")]
     public WeaponItem weapon;
@@ -24,7 +22,7 @@ public class HeroItem : BaseItem
     public LeggingsItem leggings;
     public BootsItem boots;
 
-    private bool owned = false;
+    public bool owned = false;
 
     public override void SetUIIItemStats(GameObject itemUI)
     {

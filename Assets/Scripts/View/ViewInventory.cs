@@ -298,6 +298,8 @@ public class ViewInventory : MonoBehaviour
     {
         foreach (BaseItem item in itemList)
         {
+            Debug.Log(item);
+            if (item == null) continue;
             GameObject ItemInMenu = Instantiate(itemObject, heroItemGrid.transform);
             item.SetUIForInventory(ItemInMenu);
             ItemInMenu.GetComponent<Button>().onClick.AddListener(() => Inventory.instance.EquipInHero(item, ItemType, ItemInMenu));

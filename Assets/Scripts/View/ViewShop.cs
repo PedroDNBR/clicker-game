@@ -9,9 +9,6 @@ public class ViewShop : MonoBehaviour
 
     public GameObject shopItem;
 
-    public Inventory inventory;
-    public Shop shop;
-
     private void Start()
     {
         CleanItemsFromGrid();
@@ -79,14 +76,14 @@ public class ViewShop : MonoBehaviour
 
         hero.SetUIIItemStats(ItemInMenu);
 
-        ItemInMenu.GetComponent<Button>().onClick.AddListener(() => shop.PurchaseItem(hero, ItemTypes.Hero, ItemInMenu));
+        ItemInMenu.GetComponent<Button>().onClick.AddListener(() => Shop.instance.PurchaseItem(hero, ItemTypes.Hero, ItemInMenu));
 
         ItemInMenu.SetActive(true);
     }
 
     void FillShopWithHeroes()
     {
-        foreach (HeroItem hero in shop.heroes)
+        foreach (HeroItem hero in Shop.instance.heroes)
         {
             if(Level.instance.GetLevel() >= hero.minLevelToUnlock)
             {
@@ -97,28 +94,31 @@ public class ViewShop : MonoBehaviour
 
     void FillShopWithWeapons()
     {
-        FillShopWithItems(new List<BaseItem>(shop.weapons), ItemTypes.Weapon);
+        FillShopWithItems(new List<BaseItem>(Shop.instance.weapons), ItemTypes.Weapon);
     }
 
     void FillShopWithArmmors()
     {
-        FillShopWithItems(new List<BaseItem>(shop.helmets), ItemTypes.Helmet);
+        FillShopWithItems(new List<BaseItem>(Shop.instance.helmets), ItemTypes.Helmet);
 
-        FillShopWithItems(new List<BaseItem>(shop.chestplates), ItemTypes.Chestplate);
+        FillShopWithItems(new List<BaseItem>(Shop.instance.chestplates), ItemTypes.Chestplate);
 
-        FillShopWithItems(new List<BaseItem>(shop.leggings), ItemTypes.Leggings);
+        FillShopWithItems(new List<BaseItem>(Shop.instance.leggings), ItemTypes.Leggings);
 
-        FillShopWithItems(new List<BaseItem>(shop.boots), ItemTypes.Boots);
+        FillShopWithItems(new List<BaseItem>(Shop.instance.boots), ItemTypes.Boots);
     }
 
     void FillShopWithItems(List<BaseItem> itemList, ItemTypes ItemType)
     {
         foreach (BaseItem item in itemList)
         {
-            GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
-            item.SetUIForShop(ItemInMenu);
-            ItemInMenu.GetComponent<Button>().onClick.AddListener(() => shop.PurchaseItem(item, ItemType, ItemInMenu));
-            ItemInMenu.SetActive(true);
+            if (Level.instance.GetLevel() >= item.minLevelToUnlock)
+            {
+                GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
+                item.SetUIForShop(ItemInMenu);
+                ItemInMenu.GetComponent<Button>().onClick.AddListener(() => Shop.instance.PurchaseItem(item, ItemType, ItemInMenu));
+                ItemInMenu.SetActive(true);
+            }
         }
     }
 }

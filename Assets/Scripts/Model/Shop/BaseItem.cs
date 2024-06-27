@@ -17,6 +17,9 @@ public class BaseItem : ScriptableObject
 
     private bool equipped = false;
 
+    public int shoppedItemCount = -1;
+
+    public int minLevelToUnlock = 0;
 
     public void SetUIItemSprite(GameObject itemUI)
     {

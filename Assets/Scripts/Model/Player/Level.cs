@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -34,13 +32,21 @@ public class Level : MonoBehaviour
 
     public void AddXp(int xpToAdd)
     {
+        int levelBefore = GetLevel();
         currentXp += xpToAdd;
         if (onXpChange != null) onXpChange();
+        if (levelBefore < GetLevel() && HeroController.instance.GetHero() != null) HeroController.instance.GetHero().SetHealthToMax();
     }
 
     public int GetXp()
     {
         return currentXp;
+    }
+
+    public void SetXp(int xp)
+    {
+        currentXp = xp;
+        if (onXpChange != null) onXpChange();
     }
 
     public int GetLevel()

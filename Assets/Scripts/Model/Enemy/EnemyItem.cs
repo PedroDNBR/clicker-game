@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 
@@ -9,9 +8,12 @@ public class EnemyItem : BaseItem
     public int baseAttackPower = 10;
     public float baseAttackSpeed = 1f;
 
+    public string spritePath;
+
     public int xp = 10;
     public int gold = 10;
 
-    public Sprite largeSprite;
+    public int largeSpriteIndex;
+
 }
 

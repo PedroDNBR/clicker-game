@@ -16,15 +16,23 @@ public class Hero : MonoBehaviour
     {
         health = Mathf.Clamp(health - hero.GetTotalDamageToTake(damage), 0, hero.maxBaseHealth);
         if (onTookDamageAction != null) onTookDamageAction();
+        hero.SetHealthWhenInField(health);
         if (health <= 0)
         {
             if (onDestroyedAction != null) onDestroyedAction(this);
         }
     }
 
-    void SetHealth(int health)
+    public void SetHealth(int health)
     { 
         this.health = health; 
+    }
+
+    public void SetHealthToMax()
+    {
+        if (hero == null) return;
+        this.health = hero.maxBaseHealth;
+        if (onTookDamageAction != null) onTookDamageAction();
     }
 
     void SetSprite(Sprite sprite)

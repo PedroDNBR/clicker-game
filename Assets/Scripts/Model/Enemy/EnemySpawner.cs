@@ -26,6 +26,22 @@ public class EnemySpawner : MonoBehaviour
         instance = this;
     }
 
+    public void SpawnEnemyFromSave(EnemyItem Enemy)
+    {
+        Debug.Log("from save");
+        if(spawnedEnemy != null)
+        {
+            Destroy(spawnedEnemy.gameObject);
+        }
+
+        spawnedEnemy = Instantiate(enemyTemplate, spawnerPivot);
+
+        spawnedEnemy.SetEnemyItem(Enemy);
+
+        spawnedEnemy.onDestroyedAction += EnemyWasDestroyed;
+        if (OnEnemySpawn != null) OnEnemySpawn(spawnedEnemy);
+    }
+
     void SetEnemiesToSpawn(List<EnemyItem> enemiesToSpawn)
     {
         this.enemiesToSpawn = enemiesToSpawn;
@@ -48,10 +64,10 @@ public class EnemySpawner : MonoBehaviour
         generatedEnemy.maxBaseHealth = Mathf.CeilToInt(UnityEngine.Random.Range(100, 200) * enemiesPointsMultiplier);
         generatedEnemy.baseAttackPower = Mathf.CeilToInt(UnityEngine.Random.Range(1, 5) * enemiesPointsMultiplier);
         generatedEnemy.baseAttackSpeed = UnityEngine.Random.Range(.9f, 5f) / enemiesPointsMultiplier;
-        generatedEnemy.largeSprite = enemiesLargeSpriteList[UnityEngine.Random.Range(0, enemiesLargeSpriteList.Length - 1)];
+        generatedEnemy.largeSpriteIndex = UnityEngine.Random.Range(0, enemiesLargeSpriteList.Length - 1);
 
-        generatedEnemy.xp = Mathf.CeilToInt((generatedEnemy.maxBaseHealth + generatedEnemy.baseAttackPower) / 2);
-        generatedEnemy.gold = Mathf.CeilToInt((generatedEnemy.maxBaseHealth + generatedEnemy.baseAttackPower) / 20);
+        generatedEnemy.xp = Mathf.CeilToInt((generatedEnemy.maxBaseHealth + generatedEnemy.baseAttackPower) / 20);
+        generatedEnemy.gold = Mathf.CeilToInt((generatedEnemy.maxBaseHealth + generatedEnemy.baseAttackPower) / 60);
 
         spawnedEnemy.SetEnemyItem(generatedEnemy);
 
@@ -90,5 +106,15 @@ public class EnemySpawner : MonoBehaviour
     public Enemy GetSpawnedEnemy()
     {
         return spawnedEnemy;
+    }
+
+    public float GetEnemiesPointsMultiplier()
+    {
+        return enemiesPointsMultiplier;
+    }
+
+    public void SetEnemiesPointsMultiplier(float enemiesPointsMultiplier)
+    {
+        this.enemiesPointsMultiplier = enemiesPointsMultiplier;
     }
 }

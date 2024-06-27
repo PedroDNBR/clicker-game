@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    public Level level;
-    public Inventory inventory;
-
     public ViewLevel viewLevel;
     public ViewInventory viewInventory;
     public EnemyController enemyController;
@@ -13,8 +10,8 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
-        level.Init();
-        inventory.Init();
+        Level.instance.Init();
+        Inventory.instance.Init();
 
         viewLevel.Init();
         viewInventory.Init();
@@ -39,10 +36,10 @@ public class GameState : MonoBehaviour
 
     private IEnumerator EnemyDamageHero()
     {
-        while (inventory.GetHeroInField() != null)
+        while (Inventory.instance.GetHeroInField() != null)
         {
-            enemyController.HitSpawnedEnemy(inventory.GetHeroInField().GetTotalDamage());
-            yield return new WaitForSeconds(inventory.GetHeroInField().baseAttackSpeed);
+            enemyController.HitSpawnedEnemy(Inventory.instance.GetHeroInField().GetTotalDamage());
+            yield return new WaitForSeconds(Inventory.instance.GetHeroInField().baseAttackSpeed);
         }
     }
 }

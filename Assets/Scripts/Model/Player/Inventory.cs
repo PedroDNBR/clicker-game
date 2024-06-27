@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public int gold;
-
     public static Inventory instance;
 
     public event Action onGoldChange;
@@ -13,14 +11,22 @@ public class Inventory : MonoBehaviour
     public event Action<BaseItem, ItemTypes, GameObject> onHeroItemEquipped;
     public event Action<ItemTypes> onHeroItemUnequip;
 
+    [HideInInspector]
     public List<HeroItem> heroes = new List<HeroItem>();
 
+    [HideInInspector]
     public List<WeaponItem> weapons = new List<WeaponItem>();
 
+    [HideInInspector]
     public List<HelmetItem> helmets = new List<HelmetItem>();
+    [HideInInspector]
     public List<ChestplateItem> chestplates = new List<ChestplateItem>();
+    [HideInInspector]
     public List<LeggingsItem> leggings = new List<LeggingsItem>();
+    [HideInInspector]
     public List<BootsItem> boots = new List<BootsItem>();
+
+    int gold = 0;
 
     HeroItem heroInField;
 
@@ -134,6 +140,12 @@ public class Inventory : MonoBehaviour
     public int GetGold()
     {
         return gold;
+    }
+
+    public void SetGold(int gold)
+    {
+        this.gold = gold;
+        if (onGoldChange != null) onGoldChange();
     }
 
     public HeroItem GetSelectedHero()

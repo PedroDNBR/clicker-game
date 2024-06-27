@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         enemyItem = enemy;
         health = enemyItem.maxBaseHealth;
-        GetComponent<Image>().sprite = enemyItem.largeSprite;
+        GetComponent<Image>().sprite = EnemySpawner.instance.enemiesLargeSpriteList[enemyItem.largeSpriteIndex];
     }
 
     public int GetIndex()
