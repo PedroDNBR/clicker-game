@@ -13,7 +13,7 @@ namespace RC
 
         public override void SetUIIItemStats(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"+{ArmorPoints} A";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[1].text = $"+{ArmorPoints} A";
         }
 
         public override void SetUIForShop(GameObject itemUI)

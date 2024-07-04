@@ -33,12 +33,12 @@ namespace RC
 
         public void SetUIIBaseItemStats(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"{MaxBaseHealth} HP\n{BaseAttackPower} AT\n{BaseAttackSpeed} SP";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[1].text = $"{MaxBaseHealth} HP\n{BaseAttackPower} AT\n{BaseAttackSpeed} SP";
         }
 
         public override void SetUIIItemStats(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"{MaxBaseHealth} HP\n{GetTotalDamage()} AT\n{GetTotalAttackSpeed()} SP";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[1].text = $"{MaxBaseHealth} HP\n{GetTotalDamage()} AT\n{GetTotalAttackSpeed()} SP";
         }
 
         public int GetTotalArmor()

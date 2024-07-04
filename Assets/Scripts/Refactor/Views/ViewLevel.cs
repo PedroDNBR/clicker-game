@@ -5,8 +5,8 @@ namespace RC
 {
     public class ViewLevel : MonoBehaviour
     {
-        public TMP_Text levelText;
-        public TMP_Text xpText;
+        public TextMeshProUGUI levelText;
+        public TextMeshProUGUI xpText;
 
         Level level;
 

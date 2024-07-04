@@ -32,22 +32,22 @@ namespace RC
 
         public void SetUIItemNameAndPrice(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[0].text = $"{ItemName}\n{Price} Gold";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[0].text = $"{ItemName}\n{Price} Gold";
         }
 
         public void SetUIItemNameAndOwned(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[0].text = $"{ItemName}\nOwned";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[0].text = $"{ItemName}\nOwned";
         }
 
         public void SetUIItemNameAndEquipped(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[0].text = $"{ItemName}\nEquipped";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[0].text = $"{ItemName}\nEquipped";
         }
 
         public void SetUIItemName(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[0].text = $"{ItemName}\n ";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[0].text = $"{ItemName}\n ";
         }
 
         public void DisableButton(GameObject itemUI)
@@ -93,7 +93,7 @@ namespace RC
 
         public virtual void SetUIIItemStats(GameObject itemUI)
         {
-            itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[1].text = $"";
         }
 
         public void SetUIForInventory(GameObject itemUI)

@@ -8,10 +8,10 @@ namespace RC
     public class ViewInventory : MonoBehaviour
     {
         [Header("Text")]
-        public TMP_Text goldGameText;
-        public TMP_Text goldShopText;
-        public TMP_Text heroInventoryName;
-        public TMP_Text heroInventoryStats;
+        public TextMeshProUGUI goldGameText;
+        public TextMeshProUGUI goldShopText;
+        public TextMeshProUGUI heroInventoryName;
+        public TextMeshProUGUI heroInventoryStats;
 
         [Header("UI Template")]
         public GameObject itemObject;
@@ -185,9 +185,9 @@ namespace RC
             GameObject ItemInMenu = Instantiate(itemObject, itemGrid.transform);
             ItemInMenu.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(hero.SpritePath);
 
-            ItemInMenu.GetComponentsInChildren<TMP_Text>()[0].text = $"{hero.ItemName}\nShow";
+            ItemInMenu.GetComponentsInChildren<TextMeshProUGUI>()[0].text = $"{hero.ItemName}\nShow";
 
-            ItemInMenu.GetComponentsInChildren<TMP_Text>()[1].text = $"{hero.MaxBaseHealth} HP\n{hero.BaseAttackPower} AT\n{hero.BaseAttackSpeed} SP";
+            ItemInMenu.GetComponentsInChildren<TextMeshProUGUI>()[1].text = $"{hero.MaxBaseHealth} HP\n{hero.BaseAttackPower} AT\n{hero.BaseAttackSpeed} SP";
 
             ItemInMenu.GetComponent<Button>().onClick.AddListener(() => FillHeroInventory(hero, localId));
 

@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"C:/Users/darke/Desktop/deploy-unity-webgl-fullscreen-main/src/static;C:/Users/darke/Desktop/newBuild;C:/Users/darke/Desktop/test;;;;;;;\"}"
+                "value": "{\"m_Value\":\"C:/Users/darke/Desktop/build;C:/Users/darke/Desktop/deploy-unity-webgl-fullscreen-main/src/static;C:/Users/darke/Desktop/newBuild;C:/Users/darke/Desktop/test;;;;;;\"}"
             }
         ]
     }

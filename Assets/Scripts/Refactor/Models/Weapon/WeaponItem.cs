@@ -18,7 +18,7 @@ namespace RC
             float attackSpeedBoostCalculated = (100 - (AttackSpeedBoost * 100));
             string attackSpeedBoostCalculatedString = $"+{attackSpeedBoostCalculated}";
             if (attackSpeedBoostCalculated < 0) attackSpeedBoostCalculatedString = $"-{attackSpeedBoostCalculated * -1}";
-            itemUI.GetComponentsInChildren<TMP_Text>()[1].text = $"+{AttackPowerBoost} AT\n{attackSpeedBoostCalculatedString} SP";
+            itemUI.GetComponentsInChildren<TextMeshProUGUI>()[1].text = $"+{AttackPowerBoost} AT\n{attackSpeedBoostCalculatedString} SP";
         }
 
         public override void SetUIForShop(GameObject itemUI)
